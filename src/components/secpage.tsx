@@ -139,6 +139,7 @@ const MainPage = () => {
           <FlatList
             data={hrs}
             horizontal
+            showsHorizontalScrollIndicator={false}
             renderItem={({item}) => (
               <View style={{display: 'flex', gap: 10, padding: 20}}>
                 <Text style={{color: '#d1e0e0'}}>{item.time}</Text>

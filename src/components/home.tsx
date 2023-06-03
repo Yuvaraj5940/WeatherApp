@@ -1,7 +1,12 @@
 import {View, Text, StyleSheet, Image, SafeAreaView} from 'react-native';
 import React from 'react';
 
-const Home = () => {
+const Home = ({navigation}) => {
+
+  setTimeout(() => {
+    navigation.navigate('next');
+  }, 2000);
+
   return (
     <SafeAreaView style={styles.continer}>
       <Image
