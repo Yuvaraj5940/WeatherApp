@@ -14,11 +14,12 @@ import {
 } from 'react-native';
 // import {debounce} from 'lodash';
 import {WeatherContext} from './context';
+import LinearGradient from 'react-native-linear-gradient';
 
 const MainPage = ({navigation}) => {
   const [active, setActive] = useState(false);
   const date = Date().toString().split(' ');
-  const searchDay  = [
+  const searchDay = [
     'Sunday',
     'Monday',
     'Tuesday',
@@ -202,7 +203,7 @@ const MainPage = ({navigation}) => {
   console.log(SName);
 
   return (
-    <ScrollView style={styles.container}>
+    <LinearGradient colors={['#00bfff','#4c669f']} style={styles.container}>
       <View
         style={{
           flexDirection: 'row',
@@ -217,9 +218,9 @@ const MainPage = ({navigation}) => {
         />
         <Pressable onPress={() => setActive(!active)}>
           {active ? (
-            <Text style={{fontSize: 25, color: '#FFFFFF'}}>&deg;F</Text>
+            <Text style={{fontSize: 22, color: '#FFFFFF'}}>&deg;F</Text>
           ) : (
-            <Text style={{fontSize: 25, color: '#FFFFFF'}}>&deg;C</Text>
+            <Text style={{fontSize: 22, color: '#FFFFFF'}}>&deg;C</Text>
           )}
         </Pressable>
       </View>
@@ -245,7 +246,7 @@ const MainPage = ({navigation}) => {
       <View style={styles.box2}>
         <View
           style={{
-            width: '50%',
+            width: '55%',
             justifyContent: 'center',
             alignItems: 'center',
             gap: 10,
@@ -400,255 +401,7 @@ const MainPage = ({navigation}) => {
           }}
         />
       </Pressable>
-
-      {/* model */}
-
-      {/* <Modal transparent={true} visible={active} animationType="slide">
-        <View style={styles.modelView}>
-          <Pressable style={{marginTop: 20}} onPress={() => setActive(!active)}>
-            <Image
-              source={require('../asects/icons/down-arrow.png')}
-              style={{
-                height: 25,
-                width: 30,
-                tintColor: '#d1e0e0',
-                alignSelf: 'center',
-              }}
-            />
-          </Pressable>
-          <View style={styles.modelbox1}>
-            <Text numberOfLines={1} style={{fontSize: 30, color: '#FFFFFF'}}>
-              {name}
-            </Text>
-            <Text style={{color: '#d1e0e0'}}>India</Text>
-          </View>
-
-          <View style={styles.hr} />
-
-          <View style={{display: 'flex', flexDirection: 'row', gap: 20}}>
-            {
-              <FlatList
-                data={hrs}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                renderItem={({item}) => (
-                  <View style={{display: 'flex', gap: 10, padding: 20}}>
-                    <Text style={{color: '#d1e0e0'}}>{item.time}</Text>
-                    <Text style={{color: '#FFFFFF', fontSize: 23}}>
-                      {item.deg}&deg;
-                    </Text>
-                  </View>
-                )}
-              />
-            }
-          </View>
-
-          <View style={styles.hr1} />
-
-          <View
-            style={{
-              width: '100%',
-              height: '35%',
-              justifyContent: 'space-evenly',
-            }}>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-              }}>
-              <Text style={{fontSize: 20, color: '#FFFFFF'}}>Saturday</Text>
-              <Image
-                source={require('../asects/images/sun.png')}
-                style={{
-                  height: 20,
-                  width: 20,
-                  // tintColor: '#FFFFFF',
-                  alignSelf: 'center',
-                }}
-              />
-              <Text style={{color: '#FFFFFF', fontSize: 18}}>84.2&deg;</Text>
-
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  gap: 5,
-                  alignItems: 'center',
-                }}>
-                <Image
-                  source={require('../asects/icons/down-arrow.png')}
-                  style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
-                />
-                <Text style={{color: '#FFFFFF', fontSize: 20}}>22.6&deg;</Text>
-              </View>
-
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  gap: 5,
-                  alignItems: 'center',
-                }}>
-                <Image
-                  source={require('../asects/icons/up-arrow.png')}
-                  style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
-                />
-                <Text style={{color: '#FFFFFF', fontSize: 20}}>36.8&deg;</Text>
-              </View>
-            </View>
-
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-              }}>
-              <Text style={{fontSize: 20, color: '#FFFFFF'}}>Sunday</Text>
-              <Image
-                source={require('../asects/images/sunny.png')}
-                style={{
-                  height: 20,
-                  width: 20,
-                  // tintColor: '#FFFFFF',
-                  alignSelf: 'center',
-                }}
-              />
-              <Text style={{color: '#FFFFFF', fontSize: 18}}>81.7&deg;</Text>
-
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  gap: 5,
-                  alignItems: 'center',
-                }}>
-                <Image
-                  source={require('../asects/icons/down-arrow.png')}
-                  style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
-                />
-                <Text style={{color: '#FFFFFF', fontSize: 20}}>73.9&deg;</Text>
-              </View>
-
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  gap: 5,
-                  alignItems: 'center',
-                }}>
-                <Image
-                  source={require('../asects/icons/up-arrow.png')}
-                  style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
-                />
-                <Text style={{color: '#FFFFFF', fontSize: 20}}>93.7&deg;</Text>
-              </View>
-            </View>
-
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-              }}>
-              <Text style={{fontSize: 20, color: '#FFFFFF'}}>Monday</Text>
-              <Image
-                source={require('../asects/images/rain.png')}
-                style={{
-                  height: 20,
-                  width: 20,
-                  // tintColor: '#FFFFFF',
-                  alignSelf: 'center',
-                }}
-              />
-              <Text style={{color: '#FFFFFF', fontSize: 18}}>80.8&deg;</Text>
-
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  gap: 5,
-                  alignItems: 'center',
-                }}>
-                <Image
-                  source={require('../asects/icons/down-arrow.png')}
-                  style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
-                />
-                <Text style={{color: '#FFFFFF', fontSize: 20}}>72.9&deg;</Text>
-              </View>
-
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  gap: 5,
-                  alignItems: 'center',
-                }}>
-                <Image
-                  source={require('../asects/icons/up-arrow.png')}
-                  style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
-                />
-                <Text style={{color: '#FFFFFF', fontSize: 20}}>93.2&deg;</Text>
-              </View>
-            </View>
-          </View>
-
-          <View
-            style={{
-              display: 'flex',
-              gap: 20,
-              backgroundColor: '#00b0eb',
-              paddingBottom: 40,
-            }}>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                marginTop: 30,
-                gap: 20,
-                justifyContent: 'space-evenly',
-              }}>
-              <View style={{display: 'flex', gap: 10}}>
-                <Text style={{color: '#d1e0e0'}}>Sunrise</Text>
-                <Text style={{fontSize: 22, color: '#FFFFFF'}}>05:53 AM</Text>
-              </View>
-              <View style={{display: 'flex', gap: 10}}>
-                <Text style={{color: '#d1e0e0'}}>Wind</Text>
-                <Text style={{fontSize: 22, color: '#FFFFFF'}}>13 Km/h</Text>
-              </View>
-              <View style={{display: 'flex', gap: 10}}>
-                <Text style={{color: '#d1e0e0'}}>Perciptitation</Text>
-                <Text style={{fontSize: 22, color: '#FFFFFF'}}>0 mm</Text>
-              </View>
-            </View>
-
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                marginTop: 30,
-                gap: 20,
-                justifyContent: 'space-evenly',
-              }}>
-              <View style={{display: 'flex', gap: 10}}>
-                <Text style={{color: '#d1e0e0'}}>Sunset</Text>
-                <Text style={{fontSize: 22, color: '#FFFFFF'}}>06:43 PM</Text>
-              </View>
-              <View style={{display: 'flex', gap: 10}}>
-                <Text style={{color: '#d1e0e0'}}>Presure</Text>
-                <Text style={{fontSize: 22, color: '#FFFFFF'}}>1016 mb</Text>
-              </View>
-              <View style={{display: 'flex', gap: 10}}>
-                <Text style={{color: '#d1e0e0'}}>Humidity</Text>
-                <Text style={{fontSize: 22, color: '#FFFFFF'}}>70 %</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </Modal> */}
-    </ScrollView>
+    </LinearGradient>
   );
 };
 

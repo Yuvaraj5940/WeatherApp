@@ -2,6 +2,8 @@ import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
 import React, {useContext, useState} from 'react';
 import {FlatList} from 'react-native-gesture-handler';
 import {WeatherContext} from './context';
+import LinearGradient from 'react-native-linear-gradient';
+
 
 const Three = ({navigation}) => {
   const date = Date().toString().split(' ');
@@ -94,7 +96,8 @@ const Three = ({navigation}) => {
   console.log('date', date);
 
   return (
-    <View style={styles.modelView}>
+    <LinearGradient colors={['#00bfff','#4c669f']} style={styles.modelView}>
+
       <Pressable
         style={{marginTop: 20}}
         onPress={() => navigation.navigate('next')}>
@@ -325,7 +328,7 @@ const Three = ({navigation}) => {
           display: 'flex',
           gap: 20,
           backgroundColor: '#00b0eb',
-          paddingBottom: 40,
+          paddingBottom: 50,
         }}>
         <View
           style={{
@@ -383,7 +386,10 @@ const Three = ({navigation}) => {
           </View>
         </View>
       </View>
-    </View>
+   
+
+    </LinearGradient>
+    
   );
 };
 
