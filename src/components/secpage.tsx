@@ -34,169 +34,17 @@ const MainPage = ({navigation}) => {
   const {LoadData, one, Loadproduct, weatrerData, HRS, SName, setSName} =
     useContext(WeatherContext);
 
-  useEffect(() => {
-    LoadData();
-  }, []);
 
-  console.log(one);
-  console.log('Loadproduct', Loadproduct);
-  console.log('weatrerData', weatrerData);
-  console.log('hrs.....', HRS);
-  console.log('wdata', wdata);
+  // console.log(one);
+  // console.log('Loadproduct', Loadproduct);
+  // console.log('weatrerData', weatrerData);
+  // console.log('hrs.....', HRS);
+  // console.log('wdata', wdata);
 
   useEffect(() => {
     const getData = setTimeout(() => {
-      // try {
-      //   const res = axios
-      //     .get(
-      //       `http://api.weatherapi.com/v1/forecast.json?key=43ca3500399e463ba8b101827230506 &q=${name}&days=1&aqi=no&alerts=no`,
-      //     )
-      //     .then(res => {
-      //       setWdata(res.data);
-      //       setdataList({
-      //         Name: res.data.location.name,
-      //         country: res.data.location.country,
-      //         temp_c: res.data.current.temp_c,
-      //         temp_f: res.data.current.temp_f,
-      //         maxtemp_c: res.data.forecast.forecastday[0].day.maxtemp_c,
-      //         maxtemp_f: res.data.forecast.forecastday[0].day.maxtemp_f,
-      //         mintemp_c: res.data.forecast.forecastday[0].day.mintemp_c,
-      //         mintemp_f: res.data.forecast.forecastday[0].day.mintemp_f,
-      //         dimg: res.data.current.condition.icon,
-      //         text: res.data.current.condition.text,
-      //         wind_kph: res.data.current.wind_kph,
-      //         precip_mm: res.data.current.precip_mm,
-      //         pressure_mb: res.data.current.pressure_mb,
-      //         humidity: res.data.current.humidity,
-      //         sunrise: res.data.forecast.forecastday[0].astro.sunrise,
-      //         sunset: res.data.forecast.forecastday[0].astro.sunset,
-      //       });
-      //       setHrs([
-      //         {
-      //           time: '12 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[0].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[0].temp_f,
-      //         },
-      //         {
-      //           time: '1 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[1].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[1].temp_f,
-      //         },
-      //         {
-      //           time: '2 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[2].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[2].temp_f,
-      //         },
-      //         {
-      //           time: '3 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[3].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[3].temp_f,
-      //         },
-      //         {
-      //           time: '4 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[4].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[4].temp_f,
-      //         },
-      //         {
-      //           time: '5 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[5].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[5].temp_f,
-      //         },
-      //         {
-      //           time: '6 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[6].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[6].temp_f,
-      //         },
-      //         {
-      //           time: '7 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[7].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[7].temp_f,
-      //         },
-      //         {
-      //           time: '8 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[8].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[8].temp_f,
-      //         },
-      //         {
-      //           time: '9 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[9].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[9].temp_f,
-      //         },
-      //         {
-      //           time: '10 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[10].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[10].temp_f,
-      //         },
-      //         {
-      //           time: '11 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[11].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[11].temp_f,
-      //         },
-      //         {
-      //           time: '12 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[12].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[12].temp_f,
-      //         },
-      //         {
-      //           time: '13 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[13].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[13].temp_f,
-      //         },
-      //         {
-      //           time: '14 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[14].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[14].temp_f,
-      //         },
-      //         {
-      //           time: '15 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[15].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[15].temp_f,
-      //         },
-      //         {
-      //           time: '16 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[16].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[16].temp_f,
-      //         },
-      //         {
-      //           time: '17 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[17].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[17].temp_f,
-      //         },
-      //         {
-      //           time: '18 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[18].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[18].temp_f,
-      //         },
-      //         {
-      //           time: '19 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[19].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[19].temp_f,
-      //         },
-      //         {
-      //           time: '20 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[20].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[20].temp_f,
-      //         },
-      //         {
-      //           time: '21 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[21].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[21].temp_f,
-      //         },
-      //         {
-      //           time: '22 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[22].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[22].temp_f,
-      //         },
-      //         {
-      //           time: '23 AM',
-      //           deg: res.data.forecast.forecastday[0].hour[23].temp_c,
-      //           deg_f: res.data.forecast.forecastday[0].hour[23].temp_f,
-      //         },
-      //       ]);
-      //     });
-      // } catch (error) {}
       LoadData();
-    }, 3000);
+    }, 2000);
     return () => clearTimeout(getData);
   }, [SName]);
 

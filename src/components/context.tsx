@@ -37,6 +37,7 @@ const Context = ({children}) => {
   });
   const [errors, seterror] = useState(null);
   const [SName, setSName] = useState('Bangalore');
+  
   const [HRS, setHRS] = useState([
     {
       time: '12 AM',
