@@ -12,351 +12,185 @@ import {
   Modal,
   ScrollView,
 } from 'react-native';
-import {debounce} from 'lodash';
+// import {debounce} from 'lodash';
 import {WeatherContext} from './context';
-// import axiosInstance from './utils/axios';
 
 const MainPage = ({navigation}) => {
   // const [active, setActive] = useState(false);
   const date = Date().toString().split(' ');
   const [name, setName] = useState('bangalore');
   const [wdata, setWdata] = useState({});
-  const [DataList, setdataList] = useState({
-    Name: 'Bangalore',
-    country: 'India',
-    temp_c: '28',
-    temp_f: '28',
-    maxtemp_c: '36.8',
-    maxtemp_f: '35.6',
-    mintemp_c: '22.6',
-    mintemp_f: '21.6',
-    dimg: '//cdn.weatherapi.com/weather/64x64/night/116.png',
-    text: 'Pratialy Cloudy',
-    wind_kph: '13',
-    precip_mm: '0',
-    pressure_mb: '1016',
-    humidity: '70',
-    sunrise: '5.53',
-    sunset: '6.43',
-  });
-  const {LoadData, one, Loadproduct, weatrerData} = useContext(WeatherContext);
-  // const [Current, setcurrent] = useState([]);
-  // const [Forecast, setforecast] = useState([]);
+  const {LoadData, one, Loadproduct, weatrerData, HRS, SName, setSName} =
+    useContext(WeatherContext);
 
   useEffect(() => {
     LoadData();
   }, []);
 
-  // useEffect(() => {
-  //   if(Object.keys(weatrerData).length>0){
-
-  //     setWdata(weatrerData);
-  //   }
-
-  // }, [LoadData]);
   console.log(one);
   console.log('Loadproduct', Loadproduct);
   console.log('weatrerData', weatrerData);
-  const [Hrs, setHrs] = useState([
-    {
-      time: '12 AM',
-      deg: 23.8,
-    },
-    {
-      time: '1 AM',
-      deg: 23.4,
-    },
-    {
-      time: '2 AM',
-      deg: 23.2,
-    },
-    {
-      time: '3 AM',
-      deg: 22.9,
-    },
-    {
-      time: '4 AM',
-      deg: 22.8,
-    },
-    {
-      time: '5 AM',
-      deg: 22.7,
-    },
-    {
-      time: '6 AM',
-      deg: 22.6,
-    },
-    {
-      time: '7 AM',
-      deg: 22.5,
-    },
-    {
-      time: '8 AM',
-      deg: 22.4,
-    },
-    {
-      time: '9 AM',
-      deg: 22.3,
-    },
-    {
-      time: '10 AM',
-      deg: 22.0,
-    },
-    {
-      time: '11 AM',
-      deg: 21.9,
-    },
-  ]);
-
-  const hrs = [
-    {
-      time: '12 AM',
-      deg: 20,
-    },
-    {
-      time: '1 AM',
-      deg: 23.4,
-    },
-    {
-      time: '2 AM',
-      deg: 23.2,
-    },
-    {
-      time: '3 AM',
-      deg: 22.9,
-    },
-    {
-      time: '4 AM',
-      deg: 22.8,
-    },
-    {
-      time: '5 AM',
-      deg: 22.7,
-    },
-    {
-      time: '6 AM',
-      deg: 22.6,
-    },
-    {
-      time: '7 AM',
-      deg: 22.5,
-    },
-    {
-      time: '8 AM',
-      deg: 22.4,
-    },
-    {
-      time: '9 AM',
-      deg: 22.3,
-    },
-    {
-      time: '10 AM',
-      deg: 22.0,
-    },
-    {
-      time: '11 AM',
-      deg: 21.9,
-    },
-  ];
-  console.log('hrs', Hrs);
-  // if (Object.keys(Loadproduct).length > 0) {
-  //   // setWdata(Loadproduct.forecast);
-  //   console.log(Loadproduct.forecast.forecastday[0].date)
-  //   console.log(Loadproduct.forecast.forecastday[1].date)
-  //   console.log(Loadproduct.forecast.forecastday[2].date)
-  // }
-  // console.log('DataList', Object.keys(Loadproduct).length);
+  console.log('hrs.....', HRS);
   console.log('wdata', wdata);
+
   useEffect(() => {
     const getData = setTimeout(() => {
-      try {
-        const res = axios
-          .get(
-            `http://api.weatherapi.com/v1/forecast.json?key=43ca3500399e463ba8b101827230506 &q=${name}&days=1&aqi=no&alerts=no`,
-          )
-          .then(res => {
-            setWdata(res.data);
-            setdataList({
-              Name: res.data.location.name,
-              country: res.data.location.country,
-              temp_c: res.data.current.temp_c,
-              temp_f: res.data.current.temp_f,
-              maxtemp_c: res.data.forecast.forecastday[0].day.maxtemp_c,
-              maxtemp_f: res.data.forecast.forecastday[0].day.maxtemp_f,
-              mintemp_c: res.data.forecast.forecastday[0].day.mintemp_c,
-              mintemp_f: res.data.forecast.forecastday[0].day.mintemp_f,
-              dimg: res.data.current.condition.icon,
-              text: res.data.current.condition.text,
-              wind_kph: res.data.current.wind_kph,
-              precip_mm: res.data.current.precip_mm,
-              pressure_mb: res.data.current.pressure_mb,
-              humidity: res.data.current.humidity,
-              sunrise: res.data.forecast.forecastday[0].astro.sunrise,
-              sunset: res.data.forecast.forecastday[0].astro.sunset,
-            });
-            setHrs([
-              {
-                time: '12 AM',
-                deg: res.data.forecast.forecastday[0].hour[0].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[0].temp_f,
-              },
-              {
-                time: '1 AM',
-                deg: res.data.forecast.forecastday[0].hour[1].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[1].temp_f,
-              },
-              {
-                time: '2 AM',
-                deg: res.data.forecast.forecastday[0].hour[2].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[2].temp_f,
-              },
-              {
-                time: '3 AM',
-                deg: res.data.forecast.forecastday[0].hour[3].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[3].temp_f,
-              },
-              {
-                time: '4 AM',
-                deg: res.data.forecast.forecastday[0].hour[4].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[4].temp_f,
-              },
-              {
-                time: '5 AM',
-                deg: res.data.forecast.forecastday[0].hour[5].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[5].temp_f,
-              },
-              {
-                time: '6 AM',
-                deg: res.data.forecast.forecastday[0].hour[6].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[6].temp_f,
-              },
-              {
-                time: '7 AM',
-                deg: res.data.forecast.forecastday[0].hour[7].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[7].temp_f,
-              },
-              {
-                time: '8 AM',
-                deg: res.data.forecast.forecastday[0].hour[8].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[8].temp_f,
-              },
-              {
-                time: '9 AM',
-                deg: res.data.forecast.forecastday[0].hour[9].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[9].temp_f,
-              },
-              {
-                time: '10 AM',
-                deg: res.data.forecast.forecastday[0].hour[10].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[10].temp_f,
-              },
-              {
-                time: '11 AM',
-                deg: res.data.forecast.forecastday[0].hour[11].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[11].temp_f,
-              },
-              {
-                time: '12 AM',
-                deg: res.data.forecast.forecastday[0].hour[12].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[12].temp_f,
-              },
-              {
-                time: '13 AM',
-                deg: res.data.forecast.forecastday[0].hour[13].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[13].temp_f,
-              },
-              {
-                time: '14 AM',
-                deg: res.data.forecast.forecastday[0].hour[14].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[14].temp_f,
-              },
-              {
-                time: '15 AM',
-                deg: res.data.forecast.forecastday[0].hour[15].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[15].temp_f,
-              },
-              {
-                time: '16 AM',
-                deg: res.data.forecast.forecastday[0].hour[16].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[16].temp_f,
-              },
-              {
-                time: '17 AM',
-                deg: res.data.forecast.forecastday[0].hour[17].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[17].temp_f,
-              },
-              {
-                time: '18 AM',
-                deg: res.data.forecast.forecastday[0].hour[18].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[18].temp_f,
-              },
-              {
-                time: '19 AM',
-                deg: res.data.forecast.forecastday[0].hour[19].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[19].temp_f,
-              },
-              {
-                time: '20 AM',
-                deg: res.data.forecast.forecastday[0].hour[20].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[20].temp_f,
-              },
-              {
-                time: '21 AM',
-                deg: res.data.forecast.forecastday[0].hour[21].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[21].temp_f,
-              },
-              {
-                time: '22 AM',
-                deg: res.data.forecast.forecastday[0].hour[22].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[22].temp_f,
-              },
-              {
-                time: '23 AM',
-                deg: res.data.forecast.forecastday[0].hour[23].temp_c,
-                deg_f: res.data.forecast.forecastday[0].hour[23].temp_f,
-              },
-            ]);
-          });
-      } catch (error) {}
-
-      // loadProducts();
+      // try {
+      //   const res = axios
+      //     .get(
+      //       `http://api.weatherapi.com/v1/forecast.json?key=43ca3500399e463ba8b101827230506 &q=${name}&days=1&aqi=no&alerts=no`,
+      //     )
+      //     .then(res => {
+      //       setWdata(res.data);
+      //       setdataList({
+      //         Name: res.data.location.name,
+      //         country: res.data.location.country,
+      //         temp_c: res.data.current.temp_c,
+      //         temp_f: res.data.current.temp_f,
+      //         maxtemp_c: res.data.forecast.forecastday[0].day.maxtemp_c,
+      //         maxtemp_f: res.data.forecast.forecastday[0].day.maxtemp_f,
+      //         mintemp_c: res.data.forecast.forecastday[0].day.mintemp_c,
+      //         mintemp_f: res.data.forecast.forecastday[0].day.mintemp_f,
+      //         dimg: res.data.current.condition.icon,
+      //         text: res.data.current.condition.text,
+      //         wind_kph: res.data.current.wind_kph,
+      //         precip_mm: res.data.current.precip_mm,
+      //         pressure_mb: res.data.current.pressure_mb,
+      //         humidity: res.data.current.humidity,
+      //         sunrise: res.data.forecast.forecastday[0].astro.sunrise,
+      //         sunset: res.data.forecast.forecastday[0].astro.sunset,
+      //       });
+      //       setHrs([
+      //         {
+      //           time: '12 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[0].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[0].temp_f,
+      //         },
+      //         {
+      //           time: '1 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[1].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[1].temp_f,
+      //         },
+      //         {
+      //           time: '2 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[2].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[2].temp_f,
+      //         },
+      //         {
+      //           time: '3 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[3].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[3].temp_f,
+      //         },
+      //         {
+      //           time: '4 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[4].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[4].temp_f,
+      //         },
+      //         {
+      //           time: '5 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[5].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[5].temp_f,
+      //         },
+      //         {
+      //           time: '6 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[6].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[6].temp_f,
+      //         },
+      //         {
+      //           time: '7 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[7].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[7].temp_f,
+      //         },
+      //         {
+      //           time: '8 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[8].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[8].temp_f,
+      //         },
+      //         {
+      //           time: '9 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[9].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[9].temp_f,
+      //         },
+      //         {
+      //           time: '10 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[10].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[10].temp_f,
+      //         },
+      //         {
+      //           time: '11 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[11].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[11].temp_f,
+      //         },
+      //         {
+      //           time: '12 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[12].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[12].temp_f,
+      //         },
+      //         {
+      //           time: '13 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[13].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[13].temp_f,
+      //         },
+      //         {
+      //           time: '14 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[14].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[14].temp_f,
+      //         },
+      //         {
+      //           time: '15 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[15].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[15].temp_f,
+      //         },
+      //         {
+      //           time: '16 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[16].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[16].temp_f,
+      //         },
+      //         {
+      //           time: '17 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[17].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[17].temp_f,
+      //         },
+      //         {
+      //           time: '18 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[18].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[18].temp_f,
+      //         },
+      //         {
+      //           time: '19 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[19].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[19].temp_f,
+      //         },
+      //         {
+      //           time: '20 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[20].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[20].temp_f,
+      //         },
+      //         {
+      //           time: '21 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[21].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[21].temp_f,
+      //         },
+      //         {
+      //           time: '22 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[22].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[22].temp_f,
+      //         },
+      //         {
+      //           time: '23 AM',
+      //           deg: res.data.forecast.forecastday[0].hour[23].temp_c,
+      //           deg_f: res.data.forecast.forecastday[0].hour[23].temp_f,
+      //         },
+      //       ]);
+      //     });
+      // } catch (error) {}
+      LoadData();
     }, 3000);
     return () => clearTimeout(getData);
-  }, [name]);
+  }, [SName]);
 
-  // console.log('wdata', wdata);
-  // console.log(Object.keys(wdata));
-  // console.log(Object.keys(wdata.location));
 
-  // if (Object.keys(wdata).length > 0) {
-  //   // console.log('wdata', wdata);
-  //   nn = {
-  //     Name: wdata.location.name,
-  //     country: wdata.location.country,
-  //     temp_c: wdata.current.temp_c,
-  //     temp_f: wdata.current.temp_f,
-  //     maxtemp_c: wdata.forecast.forecastday[0].day.maxtemp_c,
-  //     maxtemp_f: wdata.forecast.forecastday[0].day.maxtemp_f,
-  //     mintemp_c: wdata.forecast.forecastday[0].day.mintemp_c,
-  //     mintemp_f: wdata.forecast.forecastday[0].day.mintemp_f,
-  //     dimg: wdata.current.condition.icon,
-  //     text: wdata.current.condition.text,
-  //     wind_kph: wdata.current.wind_kph,
-  //     precip_mm: wdata.current.precip_mm,
-  //     pressure_mb: wdata.current.pressure_mb,
-  //     humidity: wdata.current.humidity,
-  //     sunrise: wdata.forecast.forecastday[0].astro.sunrise,
-  //     sunset: wdata.forecast.forecastday[0].astro.sunset,
-  //   };
-  //   console.log('forecast', wdata.forecast.forecastday[0].astro.sunrise);
-  //   // console.log('keys', Object.keys(wdata));
-  //   // // console.log('vals', Object.values(wdata.current));
-  //   // console.log('keys', Object.keys(wdata.forecast));
-  //   // console.log('keys', Object.keys(wdata.location));
-  //   // console.log('cuntry', Object.values(wdata.location));
-  //   // setdataList(nn);
-  // }
-  // console.log('DataList', DataList);
+  console.log(SName);
 
   return (
     <ScrollView style={styles.container}>
@@ -370,7 +204,7 @@ const MainPage = ({navigation}) => {
           style={styles.searcInput}
           placeholder="Search City"
           placeholderTextColor="#FFFFFF"
-          onChangeText={setName}
+          onChangeText={setSName}
         />
         <Pressable>
           <Text style={{fontSize: 25, color: '#FFFFFF'}}> &deg;C</Text>
@@ -390,9 +224,9 @@ const MainPage = ({navigation}) => {
             textAlign: 'center',
             // overflow: 'scroll',
           }}>
-          {name}
+          {weatrerData.Name}
         </Text>
-        <Text style={{color: '#d1e0e0'}}>{DataList.country}</Text>
+        <Text style={{color: '#d1e0e0'}}>{weatrerData.country}</Text>
       </View>
 
       <View style={styles.box2}>
@@ -404,10 +238,10 @@ const MainPage = ({navigation}) => {
             gap: 10,
           }}>
           <Text style={{fontSize: 80, color: '#FFFFFF'}}>
-            {DataList.temp_c}&deg;
+            {weatrerData.temp_c}&deg;
           </Text>
           <Text style={{color: '#d1e0e0'}}>
-            Feels Like {DataList.temp_c}&deg;
+            Feels Like {weatrerData.temp_c}&deg;
           </Text>
           <View
             style={{
@@ -422,14 +256,18 @@ const MainPage = ({navigation}) => {
                 style={{height: 17, width: 17, tintColor: '#FFFFFF'}}
               />
 
-              <Text style={{color: '#FFFFFF'}}>{DataList.mintemp_c}&deg;</Text>
+              <Text style={{color: '#FFFFFF'}}>
+                {weatrerData.mintemp_c}&deg;
+              </Text>
             </View>
             <View style={{display: 'flex', flexDirection: 'row', gap: 5}}>
               <Image
                 source={require('../asects/icons/up-arrow.png')}
                 style={{height: 17, width: 17, tintColor: '#FFFFFF'}}
               />
-              <Text style={{color: '#FFFFFF'}}>{DataList.maxtemp_c}&deg;</Text>
+              <Text style={{color: '#FFFFFF'}}>
+                {weatrerData.maxtemp_c}&deg;
+              </Text>
             </View>
           </View>
         </View>
@@ -439,7 +277,10 @@ const MainPage = ({navigation}) => {
             source={require('../asects/icons/partly-cloudy.png')}
             style={styles.img}
           /> */}
-          <Image style={styles.img} source={{uri: `https:${DataList.dimg}`}} />
+          <Image
+            style={styles.img}
+            source={{uri: `https:${weatrerData.dimg}`}}
+          />
         </View>
       </View>
 
@@ -451,7 +292,7 @@ const MainPage = ({navigation}) => {
           textAlign: 'center',
           margin: 20,
         }}>
-        {DataList.text}
+        {weatrerData.text}
       </Text>
 
       <View style={{borderWidth: 0.5, borderColor: '#d1e0e0', width: '100%'}} />
@@ -459,7 +300,7 @@ const MainPage = ({navigation}) => {
       <View style={{display: 'flex', flexDirection: 'row', gap: 20}}>
         {
           <FlatList
-            data={Hrs}
+            data={HRS}
             horizontal
             showsHorizontalScrollIndicator={false}
             renderItem={({item}) => (
@@ -487,19 +328,19 @@ const MainPage = ({navigation}) => {
         <View style={{display: 'flex', gap: 10}}>
           <Text style={{color: '#d1e0e0'}}>Sunrise</Text>
           <Text style={{fontSize: 22, color: '#FFFFFF'}}>
-            {DataList.sunrise}
+            {weatrerData.sunrise}
           </Text>
         </View>
         <View style={{display: 'flex', gap: 10}}>
           <Text style={{color: '#d1e0e0'}}>Wind</Text>
           <Text style={{fontSize: 22, color: '#FFFFFF'}}>
-            {DataList.wind_kph} Km/h
+            {weatrerData.wind_kph} Km/h
           </Text>
         </View>
         <View style={{display: 'flex', gap: 10}}>
           <Text style={{color: '#d1e0e0'}}>Perciptitation</Text>
           <Text style={{fontSize: 22, color: '#FFFFFF'}}>
-            {DataList.precip_mm} mm
+            {weatrerData.precip_mm} mm
           </Text>
         </View>
       </View>
@@ -515,19 +356,19 @@ const MainPage = ({navigation}) => {
         <View style={{display: 'flex', gap: 10}}>
           <Text style={{color: '#d1e0e0'}}>Sunset</Text>
           <Text style={{fontSize: 22, color: '#FFFFFF'}}>
-            {DataList.sunset}
+            {weatrerData.sunset}
           </Text>
         </View>
         <View style={{display: 'flex', gap: 10}}>
           <Text style={{color: '#d1e0e0'}}>Presure</Text>
           <Text style={{fontSize: 22, color: '#FFFFFF'}}>
-            {DataList.pressure_mb} mb
+            {weatrerData.pressure_mb} mb
           </Text>
         </View>
         <View style={{display: 'flex', gap: 10}}>
           <Text style={{color: '#d1e0e0'}}>Humidity</Text>
           <Text style={{fontSize: 22, color: '#FFFFFF'}}>
-            {DataList.humidity} %
+            {weatrerData.humidity} %
           </Text>
         </View>
       </View>

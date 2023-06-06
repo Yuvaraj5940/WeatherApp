@@ -1,8 +1,45 @@
 import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {FlatList} from 'react-native-gesture-handler';
+import {WeatherContext} from './context';
 
 const Three = ({navigation}) => {
+  const date = Date().toString().split(' ');
+  const searchDay = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  let update = new Date().getDay();
+  // let update = 6;
+  let day1 = update + 1;
+  let day2 = update + 2;
+  // console.log(update);
+  if (update > 6) {
+    update = update % 7;
+    console.log('vals', update % 7);
+  }
+
+  if (day1 > 6) {
+    day1 = day1 % 7;
+  }
+  if (day2 > 6) {
+    day2 = day2 % 7;
+  }
+  // console.log(day1,day2)
+  console.log(
+    'finding days',
+    searchDay[update],
+    searchDay[day1],
+    searchDay[day2],
+  );
+
+  const {LoadData, one, Loadproduct, weatrerData, HRS, SName, setSName} =
+    useContext(WeatherContext);
   const [name, setName] = useState('Haveri');
   const hrs = [
     {
@@ -54,11 +91,13 @@ const Three = ({navigation}) => {
       deg: 21.9,
     },
   ];
+  console.log('date', date);
 
   return (
     <View style={styles.modelView}>
-      <Pressable style={{marginTop: 20}} onPress={() =>   navigation.navigate('next')
- }>
+      <Pressable
+        style={{marginTop: 20}}
+        onPress={() => navigation.navigate('next')}>
         <Image
           source={require('../asects/icons/down-arrow.png')}
           style={{
@@ -71,9 +110,9 @@ const Three = ({navigation}) => {
       </Pressable>
       <View style={styles.modelbox1}>
         <Text numberOfLines={1} style={{fontSize: 30, color: '#FFFFFF'}}>
-          {name}
+          {weatrerData.Name}
         </Text>
-        <Text style={{color: '#d1e0e0'}}>India</Text>
+        <Text style={{color: '#d1e0e0'}}>{weatrerData.country}</Text>
       </View>
 
       <View style={styles.hr} />
@@ -81,14 +120,14 @@ const Three = ({navigation}) => {
       <View style={{display: 'flex', flexDirection: 'row', gap: 20}}>
         {
           <FlatList
-            data={hrs}
+            data={HRS}
             horizontal
             showsHorizontalScrollIndicator={false}
             renderItem={({item}) => (
               <View style={{display: 'flex', gap: 10, padding: 20}}>
                 <Text style={{color: '#d1e0e0'}}>{item.time}</Text>
                 <Text style={{color: '#FFFFFF', fontSize: 23}}>
-                  {item.deg}&deg;
+                  {item.deg_f}&deg;
                 </Text>
               </View>
             )}
@@ -110,8 +149,10 @@ const Three = ({navigation}) => {
             flexDirection: 'row',
             justifyContent: 'space-evenly',
           }}>
-          <Text style={{fontSize: 20, color: '#FFFFFF'}}>Saturday</Text>
-          <Image
+          <Text style={{fontSize: 20, color: '#FFFFFF'}}>
+            {searchDay[update]}
+          </Text>
+          {/* <Image
             source={require('../asects/images/sun.png')}
             style={{
               height: 20,
@@ -119,8 +160,19 @@ const Three = ({navigation}) => {
               // tintColor: '#FFFFFF',
               alignSelf: 'center',
             }}
+          /> */}
+          <Image
+            style={{
+              height: 30,
+              width: 30,
+              // tintColor: '#FFFFFF',
+              alignSelf: 'center',
+            }}
+            source={{uri: `https:${weatrerData.dimg}`}}
           />
-          <Text style={{color: '#FFFFFF', fontSize: 18}}>84.2&deg;</Text>
+          <Text style={{color: '#FFFFFF', fontSize: 18}}>
+            {weatrerData.temp_f}&deg;
+          </Text>
 
           <View
             style={{
@@ -133,7 +185,9 @@ const Three = ({navigation}) => {
               source={require('../asects/icons/down-arrow.png')}
               style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
             />
-            <Text style={{color: '#FFFFFF', fontSize: 20}}>22.6&deg;</Text>
+            <Text style={{color: '#FFFFFF', fontSize: 20}}>
+              {weatrerData.mintemp_f}&deg;
+            </Text>
           </View>
 
           <View
@@ -147,7 +201,9 @@ const Three = ({navigation}) => {
               source={require('../asects/icons/up-arrow.png')}
               style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
             />
-            <Text style={{color: '#FFFFFF', fontSize: 20}}>36.8&deg;</Text>
+            <Text style={{color: '#FFFFFF', fontSize: 20}}>
+              {weatrerData.maxtemp_f}&deg;
+            </Text>
           </View>
         </View>
 
@@ -158,8 +214,10 @@ const Three = ({navigation}) => {
             justifyContent: 'space-evenly',
             alignItems: 'center',
           }}>
-          <Text style={{fontSize: 20, color: '#FFFFFF'}}>Sunday</Text>
-          <Image
+          <Text style={{fontSize: 20, color: '#FFFFFF'}}>
+            {searchDay[day1]}
+          </Text>
+          {/* <Image
             source={require('../asects/images/sunny.png')}
             style={{
               height: 20,
@@ -167,8 +225,19 @@ const Three = ({navigation}) => {
               // tintColor: '#FFFFFF',
               alignSelf: 'center',
             }}
+          /> */}
+          <Image
+            style={{
+              height: 30,
+              width: 30,
+              // tintColor: '#FFFFFF',
+              alignSelf: 'center',
+            }}
+            source={{uri: `https:${weatrerData.day2_img}`}}
           />
-          <Text style={{color: '#FFFFFF', fontSize: 18}}>81.7&deg;</Text>
+          <Text style={{color: '#FFFFFF', fontSize: 18}}>
+            {weatrerData.day2_temp_f}&deg;
+          </Text>
 
           <View
             style={{
@@ -181,7 +250,9 @@ const Three = ({navigation}) => {
               source={require('../asects/icons/down-arrow.png')}
               style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
             />
-            <Text style={{color: '#FFFFFF', fontSize: 20}}>73.9&deg;</Text>
+            <Text style={{color: '#FFFFFF', fontSize: 20}}>
+              {weatrerData.day2_mintemp_f}&deg;
+            </Text>
           </View>
 
           <View
@@ -195,7 +266,9 @@ const Three = ({navigation}) => {
               source={require('../asects/icons/up-arrow.png')}
               style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
             />
-            <Text style={{color: '#FFFFFF', fontSize: 20}}>93.7&deg;</Text>
+            <Text style={{color: '#FFFFFF', fontSize: 20}}>
+              {weatrerData.day2_maxtemp_f}&deg;
+            </Text>
           </View>
         </View>
 
@@ -206,8 +279,10 @@ const Three = ({navigation}) => {
             justifyContent: 'space-evenly',
             alignItems: 'center',
           }}>
-          <Text style={{fontSize: 20, color: '#FFFFFF'}}>Monday</Text>
-          <Image
+          <Text style={{fontSize: 20, color: '#FFFFFF'}}>
+            {searchDay[day2]}
+          </Text>
+          {/* <Image
             source={require('../asects/images/rain.png')}
             style={{
               height: 20,
@@ -215,8 +290,19 @@ const Three = ({navigation}) => {
               // tintColor: '#FFFFFF',
               alignSelf: 'center',
             }}
+          /> */}
+          <Image
+            style={{
+              height: 30,
+              width: 30,
+              // tintColor: '#FFFFFF',
+              alignSelf: 'center',
+            }}
+            source={{uri: `https:${weatrerData.day3_img}`}}
           />
-          <Text style={{color: '#FFFFFF', fontSize: 18}}>80.8&deg;</Text>
+          <Text style={{color: '#FFFFFF', fontSize: 18}}>
+            {weatrerData.day3_temp_f}&deg;
+          </Text>
 
           <View
             style={{
@@ -229,7 +315,9 @@ const Three = ({navigation}) => {
               source={require('../asects/icons/down-arrow.png')}
               style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
             />
-            <Text style={{color: '#FFFFFF', fontSize: 20}}>72.9&deg;</Text>
+            <Text style={{color: '#FFFFFF', fontSize: 20}}>
+              {weatrerData.day3_mintemp_f}&deg;
+            </Text>
           </View>
 
           <View
@@ -243,7 +331,9 @@ const Three = ({navigation}) => {
               source={require('../asects/icons/up-arrow.png')}
               style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
             />
-            <Text style={{color: '#FFFFFF', fontSize: 20}}>93.2&deg;</Text>
+            <Text style={{color: '#FFFFFF', fontSize: 20}}>
+              {weatrerData.day3_maxtemp_f}&deg;
+            </Text>
           </View>
         </View>
       </View>
@@ -265,15 +355,21 @@ const Three = ({navigation}) => {
           }}>
           <View style={{display: 'flex', gap: 10}}>
             <Text style={{color: '#d1e0e0'}}>Sunrise</Text>
-            <Text style={{fontSize: 22, color: '#FFFFFF'}}>05:53 AM</Text>
+            <Text style={{fontSize: 22, color: '#FFFFFF'}}>
+              {weatrerData.sunrise}
+            </Text>
           </View>
           <View style={{display: 'flex', gap: 10}}>
             <Text style={{color: '#d1e0e0'}}>Wind</Text>
-            <Text style={{fontSize: 22, color: '#FFFFFF'}}>13 Km/h</Text>
+            <Text style={{fontSize: 22, color: '#FFFFFF'}}>
+              {weatrerData.wind_kph} Km/h
+            </Text>
           </View>
           <View style={{display: 'flex', gap: 10}}>
             <Text style={{color: '#d1e0e0'}}>Perciptitation</Text>
-            <Text style={{fontSize: 22, color: '#FFFFFF'}}>0 mm</Text>
+            <Text style={{fontSize: 22, color: '#FFFFFF'}}>
+              {weatrerData.precip_mm} mm
+            </Text>
           </View>
         </View>
 
@@ -287,15 +383,21 @@ const Three = ({navigation}) => {
           }}>
           <View style={{display: 'flex', gap: 10}}>
             <Text style={{color: '#d1e0e0'}}>Sunset</Text>
-            <Text style={{fontSize: 22, color: '#FFFFFF'}}>06:43 PM</Text>
+            <Text style={{fontSize: 22, color: '#FFFFFF'}}>
+              {weatrerData.sunset}
+            </Text>
           </View>
           <View style={{display: 'flex', gap: 10}}>
             <Text style={{color: '#d1e0e0'}}>Presure</Text>
-            <Text style={{fontSize: 22, color: '#FFFFFF'}}>1016 mb</Text>
+            <Text style={{fontSize: 22, color: '#FFFFFF'}}>
+              {weatrerData.pressure_mb} mb
+            </Text>
           </View>
           <View style={{display: 'flex', gap: 10}}>
             <Text style={{color: '#d1e0e0'}}>Humidity</Text>
-            <Text style={{fontSize: 22, color: '#FFFFFF'}}>70 %</Text>
+            <Text style={{fontSize: 22, color: '#FFFFFF'}}>
+              {weatrerData.humidity} %
+            </Text>
           </View>
         </View>
       </View>
