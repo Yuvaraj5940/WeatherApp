@@ -152,15 +152,6 @@ const Three = ({navigation}) => {
           <Text style={{fontSize: 20, color: '#FFFFFF'}}>
             {searchDay[update]}
           </Text>
-          {/* <Image
-            source={require('../asects/images/sun.png')}
-            style={{
-              height: 20,
-              width: 20,
-              // tintColor: '#FFFFFF',
-              alignSelf: 'center',
-            }}
-          /> */}
           <Image
             style={{
               height: 30,
@@ -217,15 +208,6 @@ const Three = ({navigation}) => {
           <Text style={{fontSize: 20, color: '#FFFFFF'}}>
             {searchDay[day1]}
           </Text>
-          {/* <Image
-            source={require('../asects/images/sunny.png')}
-            style={{
-              height: 20,
-              width: 20,
-              // tintColor: '#FFFFFF',
-              alignSelf: 'center',
-            }}
-          /> */}
           <Image
             style={{
               height: 30,

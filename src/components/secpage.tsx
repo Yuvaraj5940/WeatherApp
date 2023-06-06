@@ -18,6 +18,16 @@ import {WeatherContext} from './context';
 const MainPage = ({navigation}) => {
   const [active, setActive] = useState(false);
   const date = Date().toString().split(' ');
+  const searchDay  = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  let update = new Date().getDay();
   const [name, setName] = useState('bangalore');
   const [wdata, setWdata] = useState({});
   const {LoadData, one, Loadproduct, weatrerData, HRS, SName, setSName} =
@@ -216,7 +226,7 @@ const MainPage = ({navigation}) => {
 
       <View style={styles.box1}>
         <Text style={{color: '#FFFFFF', fontSize: 20}}>
-          {date[0]}, {date[1]} {date[2]}
+          {searchDay[update]}, {date[1]} {date[2]}
         </Text>
         <Text
           numberOfLines={1}
