@@ -16,7 +16,7 @@ import {
 import {WeatherContext} from './context';
 
 const MainPage = ({navigation}) => {
-  // const [active, setActive] = useState(false);
+  const [active, setActive] = useState(false);
   const date = Date().toString().split(' ');
   const [name, setName] = useState('bangalore');
   const [wdata, setWdata] = useState({});
@@ -189,7 +189,6 @@ const MainPage = ({navigation}) => {
     return () => clearTimeout(getData);
   }, [SName]);
 
-
   console.log(SName);
 
   return (
@@ -206,8 +205,12 @@ const MainPage = ({navigation}) => {
           placeholderTextColor="#FFFFFF"
           onChangeText={setSName}
         />
-        <Pressable>
-          <Text style={{fontSize: 25, color: '#FFFFFF'}}> &deg;C</Text>
+        <Pressable onPress={() => setActive(!active)}>
+          {active ? (
+            <Text style={{fontSize: 25, color: '#FFFFFF'}}>&deg;F</Text>
+          ) : (
+            <Text style={{fontSize: 25, color: '#FFFFFF'}}>&deg;C</Text>
+          )}
         </Pressable>
       </View>
 
@@ -237,11 +240,12 @@ const MainPage = ({navigation}) => {
             alignItems: 'center',
             gap: 10,
           }}>
-          <Text style={{fontSize: 80, color: '#FFFFFF'}}>
-            {weatrerData.temp_c}&deg;
+          <Text style={{fontSize: 75, color: '#FFFFFF'}}>
+            {active ? weatrerData.temp_f : weatrerData.temp_c}&deg;
           </Text>
+
           <Text style={{color: '#d1e0e0'}}>
-            Feels Like {weatrerData.temp_c}&deg;
+            Feels Like {active ? weatrerData.temp_f : weatrerData.temp_c} &deg;
           </Text>
           <View
             style={{
@@ -257,7 +261,7 @@ const MainPage = ({navigation}) => {
               />
 
               <Text style={{color: '#FFFFFF'}}>
-                {weatrerData.mintemp_c}&deg;
+                {active ? weatrerData.mintemp_f : weatrerData.mintemp_c}&deg;
               </Text>
             </View>
             <View style={{display: 'flex', flexDirection: 'row', gap: 5}}>
@@ -266,7 +270,7 @@ const MainPage = ({navigation}) => {
                 style={{height: 17, width: 17, tintColor: '#FFFFFF'}}
               />
               <Text style={{color: '#FFFFFF'}}>
-                {weatrerData.maxtemp_c}&deg;
+                {active ? weatrerData.maxtemp_f : weatrerData.maxtemp_c}&deg;
               </Text>
             </View>
           </View>
@@ -307,7 +311,7 @@ const MainPage = ({navigation}) => {
               <View style={{display: 'flex', gap: 10, padding: 20}}>
                 <Text style={{color: '#d1e0e0'}}>{item.time}</Text>
                 <Text style={{color: '#FFFFFF', fontSize: 20}}>
-                  {item.deg}&deg;
+                  {active ? item.deg_f : item.deg} &deg;
                 </Text>
               </View>
             )}
