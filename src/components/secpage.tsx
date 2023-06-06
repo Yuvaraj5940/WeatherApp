@@ -48,7 +48,7 @@ const MainPage = ({navigation}) => {
     return () => clearTimeout(getData);
   }, [SName]);
 
-  console.log(SName);
+  // console.log(SName);
 
   return (
     <LinearGradient colors={['#00bfff','#4c669f']} style={styles.container}>

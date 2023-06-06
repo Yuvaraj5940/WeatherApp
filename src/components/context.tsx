@@ -37,7 +37,7 @@ const Context = ({children}) => {
   });
   const [errors, seterror] = useState(null);
   const [SName, setSName] = useState('Bangalore');
-  
+
   const [HRS, setHRS] = useState([
     {
       time: '12 AM',
@@ -252,11 +252,13 @@ const Context = ({children}) => {
       ]);
       // console.log('days', res.data.forecast.forecastday[1].day.maxtemp_c);
       // console.log('days', res.data.forecast.forecastday[1].date);
+      console.log(res.data)
 
     } catch (error) {
       seterror(error);
     }
   }, [SName]);
+
   const value = useMemo(
     () => ({LoadData, Loadproduct, weatrerData, errors, SName, setSName, HRS}),
     [LoadData, Loadproduct, weatrerData, errors, HRS, SName, setSName],
