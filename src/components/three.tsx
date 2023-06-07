@@ -4,7 +4,6 @@ import {FlatList} from 'react-native-gesture-handler';
 import {WeatherContext} from './context';
 import LinearGradient from 'react-native-linear-gradient';
 
-
 const Three = ({navigation}) => {
   const date = Date().toString().split(' ');
   const searchDay = [
@@ -40,8 +39,17 @@ const Three = ({navigation}) => {
     searchDay[day2],
   );
 
-  const {LoadData, one, Loadproduct, weatrerData, HRS, SName, setSName} =
-    useContext(WeatherContext);
+  const {
+    LoadData,
+    one,
+    Loadproduct,
+    weatrerData,
+    HRS,
+    SName,
+    setSName,
+    active,
+    setActive,
+  } = useContext(WeatherContext);
   const [name, setName] = useState('Haveri');
   const hrs = [
     {
@@ -96,8 +104,7 @@ const Three = ({navigation}) => {
   console.log('date', date);
 
   return (
-    <LinearGradient colors={['#00bfff','#4c669f']} style={styles.modelView}>
-
+    <LinearGradient colors={['#00bfff', '#4c669f']} style={styles.modelView}>
       <Pressable
         style={{marginTop: 20}}
         onPress={() => navigation.navigate('next')}>
@@ -130,7 +137,7 @@ const Three = ({navigation}) => {
               <View style={{display: 'flex', gap: 10, padding: 20}}>
                 <Text style={{color: '#d1e0e0'}}>{item.time}</Text>
                 <Text style={{color: '#FFFFFF', fontSize: 23}}>
-                  {item.deg_f}&deg;
+                  {active ? item.deg_f : item.deg}&deg;
                 </Text>
               </View>
             )}
@@ -165,7 +172,7 @@ const Three = ({navigation}) => {
             source={{uri: `https:${weatrerData.dimg}`}}
           />
           <Text style={{color: '#FFFFFF', fontSize: 18}}>
-            {weatrerData.temp_f}&deg;
+            {active ? weatrerData.temp_f : weatrerData.temp_c}&deg;
           </Text>
 
           <View
@@ -180,7 +187,7 @@ const Three = ({navigation}) => {
               style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
             />
             <Text style={{color: '#FFFFFF', fontSize: 20}}>
-              {weatrerData.mintemp_f}&deg;
+              {active ? weatrerData.mintemp_f : weatrerData.mintemp_c}&deg;
             </Text>
           </View>
 
@@ -196,7 +203,7 @@ const Three = ({navigation}) => {
               style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
             />
             <Text style={{color: '#FFFFFF', fontSize: 20}}>
-              {weatrerData.maxtemp_f}&deg;
+              {active ? weatrerData.maxtemp_f : weatrerData.maxtemp_c}&deg;
             </Text>
           </View>
         </View>
@@ -221,7 +228,7 @@ const Three = ({navigation}) => {
             source={{uri: `https:${weatrerData.day2_img}`}}
           />
           <Text style={{color: '#FFFFFF', fontSize: 18}}>
-            {weatrerData.day2_temp_f}&deg;
+            {active ? weatrerData.day2_temp_f : weatrerData.day2_temp_c}&deg;
           </Text>
 
           <View
@@ -236,7 +243,7 @@ const Three = ({navigation}) => {
               style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
             />
             <Text style={{color: '#FFFFFF', fontSize: 20}}>
-              {weatrerData.day2_mintemp_f}&deg;
+              {active ? weatrerData.day2_mintemp_f : weatrerData.day2_mintemp_c}&deg;
             </Text>
           </View>
 
@@ -252,7 +259,7 @@ const Three = ({navigation}) => {
               style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
             />
             <Text style={{color: '#FFFFFF', fontSize: 20}}>
-              {weatrerData.day2_maxtemp_f}&deg;
+              {active ? weatrerData.day2_maxtemp_f : weatrerData.day2_maxtemp_c}&deg;
             </Text>
           </View>
         </View>
@@ -286,7 +293,7 @@ const Three = ({navigation}) => {
             source={{uri: `https:${weatrerData.day3_img}`}}
           />
           <Text style={{color: '#FFFFFF', fontSize: 18}}>
-            {weatrerData.day3_temp_f}&deg;
+            {active ? weatrerData.day3_temp_f : weatrerData.day3_temp_c}&deg;
           </Text>
 
           <View
@@ -301,7 +308,7 @@ const Three = ({navigation}) => {
               style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
             />
             <Text style={{color: '#FFFFFF', fontSize: 20}}>
-              {weatrerData.day3_mintemp_f}&deg;
+              {active ? weatrerData.day3_mintemp_f : weatrerData.day3_mintemp_c}&deg;
             </Text>
           </View>
 
@@ -317,7 +324,7 @@ const Three = ({navigation}) => {
               style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
             />
             <Text style={{color: '#FFFFFF', fontSize: 20}}>
-              {weatrerData.day3_maxtemp_f}&deg;
+              {active ? weatrerData.day3_maxtemp_f : weatrerData.day3_maxtemp_c}&deg;
             </Text>
           </View>
         </View>
@@ -386,10 +393,7 @@ const Three = ({navigation}) => {
           </View>
         </View>
       </View>
-   
-
     </LinearGradient>
-    
   );
 };
 

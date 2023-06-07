@@ -17,7 +17,6 @@ import {WeatherContext} from './context';
 import LinearGradient from 'react-native-linear-gradient';
 
 const MainPage = ({navigation}) => {
-  const [active, setActive] = useState(false);
   const date = Date().toString().split(' ');
   const searchDay = [
     'Sunday',
@@ -31,9 +30,17 @@ const MainPage = ({navigation}) => {
   let update = new Date().getDay();
   const [name, setName] = useState('bangalore');
   const [wdata, setWdata] = useState({});
-  const {LoadData, one, Loadproduct, weatrerData, HRS, SName, setSName} =
-    useContext(WeatherContext);
-
+  const {
+    LoadData,
+    one,
+    Loadproduct,
+    weatrerData,
+    HRS,
+    SName,
+    setSName,
+    active,
+    setActive,
+  } = useContext(WeatherContext);
 
   // console.log(one);
   // console.log('Loadproduct', Loadproduct);
@@ -51,7 +58,7 @@ const MainPage = ({navigation}) => {
   // console.log(SName);
 
   return (
-    <LinearGradient colors={['#00bfff','#4c669f']} style={styles.container}>
+    <LinearGradient colors={['#00bfff', '#4c669f']} style={styles.container}>
       <View
         style={{
           flexDirection: 'row',
@@ -66,9 +73,9 @@ const MainPage = ({navigation}) => {
         />
         <Pressable onPress={() => setActive(!active)}>
           {active ? (
-            <Text style={{fontSize: 22, color: '#FFFFFF'}}>&deg;F</Text>
+            <Text style={{fontSize: 30, color: '#FFFFFF'}}>&deg;F</Text>
           ) : (
-            <Text style={{fontSize: 22, color: '#FFFFFF'}}>&deg;C</Text>
+            <Text style={{fontSize: 30, color: '#FFFFFF'}}>&deg;C</Text>
           )}
         </Pressable>
       </View>

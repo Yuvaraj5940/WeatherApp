@@ -5,6 +5,8 @@ import axios from 'axios';
 export const WeatherContext = createContext();
 const Context = ({children}) => {
   const [Loadproduct, setLoadProducrt] = useState([]);
+  const [active, setActive] = useState(false);
+
   const [weatrerData, setweatherData] = useState({
     Name: 'Bangalore',
     country: 'India',
@@ -126,7 +128,6 @@ const Context = ({children}) => {
         day3_mintemp_c: res.data.forecast.forecastday[2].day.mintemp_c,
         day3_mintemp_f: res.data.forecast.forecastday[2].day.mintemp_f,
         day3_img: res.data.forecast.forecastday[2].day.condition.icon,
-
       });
       setHRS([
         {
@@ -252,16 +253,35 @@ const Context = ({children}) => {
       ]);
       // console.log('days', res.data.forecast.forecastday[1].day.maxtemp_c);
       // console.log('days', res.data.forecast.forecastday[1].date);
-      console.log(res.data)
-
+      console.log(res.data);
     } catch (error) {
       seterror(error);
     }
   }, [SName]);
 
   const value = useMemo(
-    () => ({LoadData, Loadproduct, weatrerData, errors, SName, setSName, HRS}),
-    [LoadData, Loadproduct, weatrerData, errors, HRS, SName, setSName],
+    () => ({
+      LoadData,
+      Loadproduct,
+      weatrerData,
+      errors,
+      SName,
+      setSName,
+      HRS,
+      active,
+      setActive,
+    }),
+    [
+      LoadData,
+      Loadproduct,
+      weatrerData,
+      errors,
+      HRS,
+      SName,
+      setSName,
+      active,
+      setActive,
+    ],
   );
 
   return (
