@@ -104,7 +104,7 @@ const Three = ({navigation}) => {
   console.log('date', date);
 
   return (
-    <LinearGradient colors={['#00bfff', '#4c669f']} style={styles.modelView}>
+    <LinearGradient colors={['#34cbff', '#4c669f']} style={styles.modelView}>
       <Pressable
         style={{marginTop: 20}}
         onPress={() => navigation.navigate('next')}>

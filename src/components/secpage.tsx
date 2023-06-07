@@ -58,7 +58,7 @@ const MainPage = ({navigation}) => {
   // console.log(SName);
 
   return (
-    <LinearGradient colors={['#00bfff', '#4c669f']} style={styles.container}>
+    <LinearGradient colors={['#34cbff', '#4c669f']} style={styles.container}>
       <View
         style={{
           flexDirection: 'row',
@@ -158,9 +158,9 @@ const MainPage = ({navigation}) => {
         style={{
           color: '#FFFFFF',
           fontWeight: 'bold',
-          fontSize: 30,
+          fontSize: 33,
           textAlign: 'center',
-          margin: 20,
+          margin: 22,
         }}>
         {weatrerData.text}
       </Text>
