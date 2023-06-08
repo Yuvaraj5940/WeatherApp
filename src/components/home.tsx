@@ -1,11 +1,16 @@
 import {View, Text, StyleSheet, Image, SafeAreaView} from 'react-native';
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
+import {WeatherContext} from './context';
 
 const Home = ({navigation}) => {
-
+  const {LoadData} = useContext(WeatherContext);
   setTimeout(() => {
     navigation.navigate('next');
   }, 2000);
+
+  // useEffect(() => {
+  //   LoadData();
+  // }, []);
 
   return (
     <SafeAreaView style={styles.continer}>

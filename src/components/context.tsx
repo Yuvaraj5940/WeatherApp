@@ -1,29 +1,36 @@
 import {View, Text} from 'react-native';
-import React, {createContext, useState, useCallback, useMemo} from 'react';
+import React, {
+  createContext,
+  useState,
+  useCallback,
+  useMemo,
+  useEffect,
+} from 'react';
 import axios from 'axios';
 
 export const WeatherContext = createContext();
 const Context = ({children}) => {
   const [Loadproduct, setLoadProducrt] = useState([]);
+  const [isload, setisload] = useState(false);
   const [active, setActive] = useState(false);
 
   const [weatrerData, setweatherData] = useState({
     Name: 'Bangalore',
-    country: 'India',
-    temp_c: '28',
-    temp_f: '28',
-    maxtemp_c: '36.8',
-    maxtemp_f: '35.6',
-    mintemp_c: '22.6',
-    mintemp_f: '21.6',
-    dimg: '//cdn.weatherapi.com/weather/64x64/night/116.png',
-    text: 'Pratialy Cloudy',
-    wind_kph: '13',
-    precip_mm: '0',
-    pressure_mb: '1016',
-    humidity: '70',
-    sunrise: '5.53',
-    sunset: '6.43',
+    country: '',
+    temp_c: '',
+    temp_f: '',
+    maxtemp_c: '',
+    maxtemp_f: '',
+    mintemp_c: '',
+    mintemp_f: '',
+    dimg: '',
+    text: '',
+    wind_kph: '',
+    precip_mm: '',
+    pressure_mb: '',
+    humidity: '',
+    sunrise: '',
+    sunset: '',
     day2_temp_c: '',
     day2_temp_f: '',
     day2_maxtemp_c: '',
@@ -37,7 +44,7 @@ const Context = ({children}) => {
     day3_mintemp_c: '',
     day3_mintemp_f: '',
   });
-  const [errors, seterror] = useState(null);
+  const [errors, seterror] = useState(true);
   const [SName, setSName] = useState('Bangalore');
 
   const [HRS, setHRS] = useState([
@@ -96,7 +103,8 @@ const Context = ({children}) => {
       const res = await axios.get(
         `http://api.weatherapi.com/v1/forecast.json?key=43ca3500399e463ba8b101827230506 &q=${SName}&days=3&aqi=no&alerts=no`,
       );
-      setLoadProducrt(res.data);
+      setLoadProducrt({...res.data});
+      setisload(true);
       setweatherData({
         Name: res.data.location.name,
         country: res.data.location.country,
@@ -251,11 +259,11 @@ const Context = ({children}) => {
           deg_f: res.data.forecast.forecastday[0].hour[23].temp_f,
         },
       ]);
-      // console.log('days', res.data.forecast.forecastday[1].day.maxtemp_c);
-      // console.log('days', res.data.forecast.forecastday[1].date);
+     
+      seterror(false);
       console.log(res.data);
     } catch (error) {
-      seterror(error);
+      seterror(true);
     }
   }, [SName]);
 
@@ -270,6 +278,8 @@ const Context = ({children}) => {
       HRS,
       active,
       setActive,
+      seterror,
+      isload,
     }),
     [
       LoadData,
@@ -281,6 +291,8 @@ const Context = ({children}) => {
       setSName,
       active,
       setActive,
+      seterror,
+      isload,
     ],
   );
 

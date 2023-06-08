@@ -22,7 +22,6 @@ const Three = ({navigation}) => {
   // console.log(update);
   if (update > 6) {
     update = update % 7;
-    console.log('vals', update % 7);
   }
 
   if (day1 > 6) {
@@ -32,12 +31,12 @@ const Three = ({navigation}) => {
     day2 = day2 % 7;
   }
   // console.log(day1,day2)
-  console.log(
-    'finding days',
-    searchDay[update],
-    searchDay[day1],
-    searchDay[day2],
-  );
+  // console.log(
+  //   'finding days',
+  //   searchDay[update],
+  //   searchDay[day1],
+  //   searchDay[day2],
+  // );
 
   const {
     LoadData,
@@ -101,42 +100,35 @@ const Three = ({navigation}) => {
       deg: 21.9,
     },
   ];
-  console.log('date', date);
+  // console.log('date', date);
 
   return (
     <LinearGradient colors={['#34cbff', '#4c669f']} style={styles.modelView}>
-      <Pressable
-        style={{marginTop: 20}}
-        onPress={() => navigation.navigate('next')}>
+      <Pressable onPress={() => navigation.navigate('next')}>
         <Image
           source={require('../asects/icons/down-arrow.png')}
-          style={{
-            height: 25,
-            width: 30,
-            tintColor: '#d1e0e0',
-            alignSelf: 'center',
-          }}
+          style={styles.nav_img}
         />
       </Pressable>
       <View style={styles.modelbox1}>
-        <Text numberOfLines={1} style={{fontSize: 30, color: '#FFFFFF'}}>
+        <Text numberOfLines={1} style={styles.cityname}>
           {weatrerData.Name}
         </Text>
-        <Text style={{color: '#d1e0e0'}}>{weatrerData.country}</Text>
+        <Text style={styles.smtext}>{weatrerData.country}</Text>
       </View>
 
       <View style={styles.hr} />
 
-      <View style={{display: 'flex', flexDirection: 'row', gap: 20}}>
+      <View style={styles.box2}>
         {
           <FlatList
             data={HRS}
             horizontal
             showsHorizontalScrollIndicator={false}
             renderItem={({item}) => (
-              <View style={{display: 'flex', gap: 10, padding: 20}}>
-                <Text style={{color: '#d1e0e0'}}>{item.time}</Text>
-                <Text style={{color: '#FFFFFF', fontSize: 23}}>
+              <View style={styles.timebox}>
+                <Text style={styles.smtext}>{item.time}</Text>
+                <Text style={styles.hr_data}>
                   {active ? item.deg_f : item.deg}&deg;
                 </Text>
               </View>
@@ -147,133 +139,73 @@ const Three = ({navigation}) => {
 
       <View style={styles.hr1} />
 
-      <View
-        style={{
-          width: '100%',
-          height: '35%',
-          justifyContent: 'space-evenly',
-        }}>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-          }}>
-          <Text style={{fontSize: 20, color: '#FFFFFF'}}>
-            {searchDay[update]}
-          </Text>
+      <View style={styles.box3}>
+        <View style={styles.box3_div}>
+          <Text style={styles.daytext}>{searchDay[update]}</Text>
           <Image
-            style={{
-              height: 30,
-              width: 30,
-              // tintColor: '#FFFFFF',
-              alignSelf: 'center',
-            }}
+            style={styles.day_imgs}
             source={{uri: `https:${weatrerData.dimg}`}}
           />
-          <Text style={{color: '#FFFFFF', fontSize: 18}}>
+          <Text style={styles.days_w}>
             {active ? weatrerData.temp_f : weatrerData.temp_c}&deg;
           </Text>
 
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: 5,
-              alignItems: 'center',
-            }}>
+          <View style={styles.days_div}>
             <Image
               source={require('../asects/icons/down-arrow.png')}
-              style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
+              style={styles.days_div_img}
             />
-            <Text style={{color: '#FFFFFF', fontSize: 20}}>
+            <Text style={styles.days_div_d}>
               {active ? weatrerData.mintemp_f : weatrerData.mintemp_c}&deg;
             </Text>
           </View>
 
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: 5,
-              alignItems: 'center',
-            }}>
+          <View style={styles.days_div}>
             <Image
               source={require('../asects/icons/up-arrow.png')}
-              style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
+              style={styles.days_div_img}
             />
-            <Text style={{color: '#FFFFFF', fontSize: 20}}>
+            <Text style={styles.days_div_d}>
               {active ? weatrerData.maxtemp_f : weatrerData.maxtemp_c}&deg;
             </Text>
           </View>
         </View>
 
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-          }}>
-          <Text style={{fontSize: 20, color: '#FFFFFF'}}>
-            {searchDay[day1]}
-          </Text>
+        <View style={styles.day1_div}>
+          <Text style={styles.daytext}>{searchDay[day1]}</Text>
           <Image
-            style={{
-              height: 30,
-              width: 30,
-              // tintColor: '#FFFFFF',
-              alignSelf: 'center',
-            }}
+            style={styles.day_imgs}
             source={{uri: `https:${weatrerData.day2_img}`}}
           />
-          <Text style={{color: '#FFFFFF', fontSize: 18}}>
+          <Text style={styles.days_w}>
             {active ? weatrerData.day2_temp_f : weatrerData.day2_temp_c}&deg;
           </Text>
 
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: 5,
-              alignItems: 'center',
-            }}>
+          <View style={styles.days_div}>
             <Image
               source={require('../asects/icons/down-arrow.png')}
-              style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
+              style={styles.days_div_img}
             />
-            <Text style={{color: '#FFFFFF', fontSize: 20}}>
-              {active ? weatrerData.day2_mintemp_f : weatrerData.day2_mintemp_c}&deg;
+            <Text style={styles.days_div_d}>
+              {active ? weatrerData.day2_mintemp_f : weatrerData.day2_mintemp_c}
+              &deg;
             </Text>
           </View>
 
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: 5,
-              alignItems: 'center',
-            }}>
+          <View style={styles.days_div}>
             <Image
               source={require('../asects/icons/up-arrow.png')}
-              style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
+              style={styles.days_div_img}
             />
-            <Text style={{color: '#FFFFFF', fontSize: 20}}>
-              {active ? weatrerData.day2_maxtemp_f : weatrerData.day2_maxtemp_c}&deg;
+            <Text style={styles.days_div_d}>
+              {active ? weatrerData.day2_maxtemp_f : weatrerData.day2_maxtemp_c}
+              &deg;
             </Text>
           </View>
         </View>
 
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-          }}>
-          <Text style={{fontSize: 20, color: '#FFFFFF'}}>
-            {searchDay[day2]}
-          </Text>
+        <View style={styles.day1_div}>
+          <Text style={styles.daytext}>{searchDay[day2]}</Text>
           {/* <Image
             source={require('../asects/images/rain.png')}
             style={{
@@ -284,112 +216,69 @@ const Three = ({navigation}) => {
             }}
           /> */}
           <Image
-            style={{
-              height: 30,
-              width: 30,
-              // tintColor: '#FFFFFF',
-              alignSelf: 'center',
-            }}
+            style={styles.day_imgs}
             source={{uri: `https:${weatrerData.day3_img}`}}
           />
-          <Text style={{color: '#FFFFFF', fontSize: 18}}>
+          <Text style={styles.days_w}>
             {active ? weatrerData.day3_temp_f : weatrerData.day3_temp_c}&deg;
           </Text>
 
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: 5,
-              alignItems: 'center',
-            }}>
+          <View style={styles.days_div}>
             <Image
               source={require('../asects/icons/down-arrow.png')}
-              style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
+              style={styles.days_div_img}
             />
-            <Text style={{color: '#FFFFFF', fontSize: 20}}>
-              {active ? weatrerData.day3_mintemp_f : weatrerData.day3_mintemp_c}&deg;
+            <Text style={styles.days_div_d}>
+              {active ? weatrerData.day3_mintemp_f : weatrerData.day3_mintemp_c}
+              &deg;
             </Text>
           </View>
 
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: 5,
-              alignItems: 'center',
-            }}>
+          <View style={styles.days_div}>
             <Image
               source={require('../asects/icons/up-arrow.png')}
-              style={{height: 15, width: 15, tintColor: '#d1e0e0'}}
+              style={styles.days_div_img}
             />
-            <Text style={{color: '#FFFFFF', fontSize: 20}}>
-              {active ? weatrerData.day3_maxtemp_f : weatrerData.day3_maxtemp_c}&deg;
+            <Text style={styles.days_div_d}>
+              {active ? weatrerData.day3_maxtemp_f : weatrerData.day3_maxtemp_c}
+              &deg;
             </Text>
           </View>
         </View>
       </View>
 
-      <View
-        style={{
-          display: 'flex',
-          gap: 20,
-          backgroundColor: '#00b0eb',
-          paddingBottom: 50,
-        }}>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            marginTop: 30,
-            gap: 20,
-            justifyContent: 'space-evenly',
-          }}>
-          <View style={{display: 'flex', gap: 10}}>
-            <Text style={{color: '#d1e0e0'}}>Sunrise</Text>
-            <Text style={{fontSize: 22, color: '#FFFFFF'}}>
-              {weatrerData.sunrise}
-            </Text>
+      <View style={styles.box4}>
+        <View style={styles.box4_row}>
+          <View style={styles.box4_row_h}>
+            <Text style={styles.smtext}>Sunrise</Text>
+            <Text style={styles.box4_row_data}>{weatrerData.sunrise}</Text>
           </View>
-          <View style={{display: 'flex', gap: 10}}>
-            <Text style={{color: '#d1e0e0'}}>Wind</Text>
-            <Text style={{fontSize: 22, color: '#FFFFFF'}}>
+          <View style={styles.box4_row_h}>
+            <Text style={styles.smtext}>Wind</Text>
+            <Text style={styles.box4_row_data}>
               {weatrerData.wind_kph} Km/h
             </Text>
           </View>
-          <View style={{display: 'flex', gap: 10}}>
-            <Text style={{color: '#d1e0e0'}}>Perciptitation</Text>
-            <Text style={{fontSize: 22, color: '#FFFFFF'}}>
-              {weatrerData.precip_mm} mm
-            </Text>
+          <View style={styles.box4_row_h}>
+            <Text style={styles.smtext}>Perciptitation</Text>
+            <Text style={styles.box4_row_data}>{weatrerData.precip_mm} mm</Text>
           </View>
         </View>
 
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            marginTop: 30,
-            gap: 20,
-            justifyContent: 'space-evenly',
-          }}>
-          <View style={{display: 'flex', gap: 10}}>
-            <Text style={{color: '#d1e0e0'}}>Sunset</Text>
-            <Text style={{fontSize: 22, color: '#FFFFFF'}}>
-              {weatrerData.sunset}
-            </Text>
+        <View style={styles.box4_row}>
+          <View style={styles.box4_row_h}>
+            <Text style={styles.smtext}>Sunset</Text>
+            <Text style={styles.box4_row_data}>{weatrerData.sunset}</Text>
           </View>
-          <View style={{display: 'flex', gap: 10}}>
-            <Text style={{color: '#d1e0e0'}}>Presure</Text>
-            <Text style={{fontSize: 22, color: '#FFFFFF'}}>
+          <View style={styles.box4_row_h}>
+            <Text style={styles.smtext}>Presure</Text>
+            <Text style={styles.box4_row_data}>
               {weatrerData.pressure_mb} mb
             </Text>
           </View>
-          <View style={{display: 'flex', gap: 10}}>
-            <Text style={{color: '#d1e0e0'}}>Humidity</Text>
-            <Text style={{fontSize: 22, color: '#FFFFFF'}}>
-              {weatrerData.humidity} %
-            </Text>
+          <View style={styles.box4_row_h}>
+            <Text style={styles.smtext}>Humidity</Text>
+            <Text style={styles.box4_row_data}>{weatrerData.humidity} %</Text>
           </View>
         </View>
       </View>
@@ -406,8 +295,14 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#00bfff',
     position: 'absolute',
-    // top: 10,
+    paddingTop: 20,
     flexWrap: 'wrap',
+  },
+  nav_img: {
+    height: 25,
+    width: 30,
+    tintColor: '#d1e0e0',
+    alignSelf: 'center',
   },
   modelbox1: {
     display: 'flex',
@@ -418,4 +313,56 @@ const styles = StyleSheet.create({
   },
   hr: {borderWidth: 0.6, borderColor: '#d1e0e0', width: '100%'},
   hr1: {borderWidth: 0.5, borderColor: '#d1e0e0', width: '100%'},
+  smtext: {color: '#d1e0e0'},
+  cityname: {fontSize: 30, color: '#FFFFFF'},
+  box2: {display: 'flex', flexDirection: 'row', gap: 20},
+  timebox: {display: 'flex', gap: 10, padding: 20},
+  hr_data: {color: '#FFFFFF', fontSize: 23},
+  box3: {
+    width: '100%',
+    height: '35%',
+    justifyContent: 'space-evenly',
+  },
+  box3_div: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  daytext: {fontSize: 20, color: '#FFFFFF'},
+  day_imgs: {
+    height: 30,
+    width: 30,
+    // tintColor: '#FFFFFF',
+    alignSelf: 'center',
+  },
+  days_w: {color: '#FFFFFF', fontSize: 18},
+  days_div: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 5,
+    alignItems: 'center',
+  },
+  days_div_img: {height: 15, width: 15, tintColor: '#d1e0e0'},
+  days_div_d: {color: '#FFFFFF', fontSize: 20},
+  day1_div: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  box4: {
+    display: 'flex',
+    gap: 20,
+    backgroundColor: '#00b0eb',
+    paddingBottom: 50,
+  },
+  box4_row: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: 30,
+    gap: 20,
+    justifyContent: 'space-evenly',
+  },
+  box4_row_h: {display: 'flex', gap: 10},
+  box4_row_data: {fontSize: 22, color: '#FFFFFF'},
 });
