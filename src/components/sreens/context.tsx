@@ -7,6 +7,7 @@ import React, {
   useEffect,
 } from 'react';
 import axios from 'axios';
+import axiosInstance from '../utils/axios';
 
 export const WeatherContext = createContext();
 const Context = ({children}) => {
@@ -14,36 +15,36 @@ const Context = ({children}) => {
   const [isload, setisload] = useState(false);
   const [active, setActive] = useState(false);
 
-  const [weatrerData, setweatherData] = useState({
-    Name: 'Bangalore',
-    country: '',
-    temp_c: '',
-    temp_f: '',
-    maxtemp_c: '',
-    maxtemp_f: '',
-    mintemp_c: '',
-    mintemp_f: '',
-    dimg: '',
-    text: '',
-    wind_kph: '',
-    precip_mm: '',
-    pressure_mb: '',
-    humidity: '',
-    sunrise: '',
-    sunset: '',
-    day2_temp_c: '',
-    day2_temp_f: '',
-    day2_maxtemp_c: '',
-    day2_maxtemp_f: '',
-    day2_mintemp_c: '',
-    day2_mintemp_f: '',
-    day3_temp_c: '',
-    day3_temp_f: '',
-    day3_maxtemp_c: '',
-    day3_maxtemp_f: '',
-    day3_mintemp_c: '',
-    day3_mintemp_f: '',
-  });
+  // const [weatrerData, setweatherData] = useState({
+  //   Name: 'Bangalore',
+  //   country: '',
+  //   temp_c: '',
+  //   temp_f: '',
+  //   maxtemp_c: '',
+  //   maxtemp_f: '',
+  //   mintemp_c: '',
+  //   mintemp_f: '',
+  //   dimg: '',
+  //   text: '',
+  //   wind_kph: '',
+  //   precip_mm: '',
+  //   pressure_mb: '',
+  //   humidity: '',
+  //   sunrise: '',
+  //   sunset: '',
+  //   day2_temp_c: '',
+  //   day2_temp_f: '',
+  //   day2_maxtemp_c: '',
+  //   day2_maxtemp_f: '',
+  //   day2_mintemp_c: '',
+  //   day2_mintemp_f: '',
+  //   day3_temp_c: '',
+  //   day3_temp_f: '',
+  //   day3_maxtemp_c: '',
+  //   day3_maxtemp_f: '',
+  //   day3_mintemp_c: '',
+  //   day3_mintemp_f: '',
+  // });
   const [errors, seterror] = useState(true);
   const [SName, setSName] = useState('Bangalore');
 
@@ -100,43 +101,44 @@ const Context = ({children}) => {
 
   const LoadData = useCallback(async () => {
     try {
-      const res = await axios.get(
-        `http://api.weatherapi.com/v1/forecast.json?key=43ca3500399e463ba8b101827230506 &q=${SName}&days=3&aqi=no&alerts=no`,
-      );
+      // const res = await axios.get(
+      //   `http://api.weatherapi.com/v1/forecast.json?key=43ca3500399e463ba8b101827230506 &q=${SName}&days=3&aqi=no&alerts=no`,
+      // );
+      const res = await axiosInstance.get(`${SName}&days=3&aqi=no&alerts=no`);
       setLoadProducrt({...res.data});
       setisload(true);
-      setweatherData({
-        Name: res.data.location.name,
-        country: res.data.location.country,
-        temp_c: res.data.current.temp_c,
-        temp_f: res.data.current.temp_f,
-        maxtemp_c: res.data.forecast.forecastday[0].day.maxtemp_c,
-        maxtemp_f: res.data.forecast.forecastday[0].day.maxtemp_f,
-        mintemp_c: res.data.forecast.forecastday[0].day.mintemp_c,
-        mintemp_f: res.data.forecast.forecastday[0].day.mintemp_f,
-        dimg: res.data.current.condition.icon,
-        text: res.data.current.condition.text,
-        wind_kph: res.data.current.wind_kph,
-        precip_mm: res.data.current.precip_mm,
-        pressure_mb: res.data.current.pressure_mb,
-        humidity: res.data.current.humidity,
-        sunrise: res.data.forecast.forecastday[0].astro.sunrise,
-        sunset: res.data.forecast.forecastday[0].astro.sunset,
-        day2_temp_c: res.data.forecast.forecastday[1].day.avgtemp_c,
-        day2_temp_f: res.data.forecast.forecastday[1].day.avgtemp_f,
-        day2_maxtemp_c: res.data.forecast.forecastday[1].day.maxtemp_c,
-        day2_maxtemp_f: res.data.forecast.forecastday[1].day.maxtemp_f,
-        day2_mintemp_c: res.data.forecast.forecastday[1].day.mintemp_c,
-        day2_mintemp_f: res.data.forecast.forecastday[1].day.mintemp_f,
-        day2_img: res.data.forecast.forecastday[1].day.condition.icon,
-        day3_temp_c: res.data.forecast.forecastday[2].day.avgtemp_c,
-        day3_temp_f: res.data.forecast.forecastday[2].day.avgtemp_f,
-        day3_maxtemp_c: res.data.forecast.forecastday[2].day.maxtemp_c,
-        day3_maxtemp_f: res.data.forecast.forecastday[2].day.maxtemp_f,
-        day3_mintemp_c: res.data.forecast.forecastday[2].day.mintemp_c,
-        day3_mintemp_f: res.data.forecast.forecastday[2].day.mintemp_f,
-        day3_img: res.data.forecast.forecastday[2].day.condition.icon,
-      });
+      // setweatherData({
+      //   Name: res.data.location.name,
+      //   country: res.data.location.country,
+      //   temp_c: res.data.current.temp_c,
+      //   temp_f: res.data.current.temp_f,
+      //   maxtemp_c: res.data.forecast.forecastday[0].day.maxtemp_c,
+      //   maxtemp_f: res.data.forecast.forecastday[0].day.maxtemp_f,
+      //   mintemp_c: res.data.forecast.forecastday[0].day.mintemp_c,
+      //   mintemp_f: res.data.forecast.forecastday[0].day.mintemp_f,
+      //   dimg: res.data.current.condition.icon,
+      //   text: res.data.current.condition.text,
+      //   wind_kph: res.data.current.wind_kph,
+      //   precip_mm: res.data.current.precip_mm,
+      //   pressure_mb: res.data.current.pressure_mb,
+      //   humidity: res.data.current.humidity,
+      //   sunrise: res.data.forecast.forecastday[0].astro.sunrise,
+      //   sunset: res.data.forecast.forecastday[0].astro.sunset,
+      //   day2_temp_c: res.data.forecast.forecastday[1].day.avgtemp_c,
+      //   day2_temp_f: res.data.forecast.forecastday[1].day.avgtemp_f,
+      //   day2_maxtemp_c: res.data.forecast.forecastday[1].day.maxtemp_c,
+      //   day2_maxtemp_f: res.data.forecast.forecastday[1].day.maxtemp_f,
+      //   day2_mintemp_c: res.data.forecast.forecastday[1].day.mintemp_c,
+      //   day2_mintemp_f: res.data.forecast.forecastday[1].day.mintemp_f,
+      //   day2_img: res.data.forecast.forecastday[1].day.condition.icon,
+      //   day3_temp_c: res.data.forecast.forecastday[2].day.avgtemp_c,
+      //   day3_temp_f: res.data.forecast.forecastday[2].day.avgtemp_f,
+      //   day3_maxtemp_c: res.data.forecast.forecastday[2].day.maxtemp_c,
+      //   day3_maxtemp_f: res.data.forecast.forecastday[2].day.maxtemp_f,
+      //   day3_mintemp_c: res.data.forecast.forecastday[2].day.mintemp_c,
+      //   day3_mintemp_f: res.data.forecast.forecastday[2].day.mintemp_f,
+      //   day3_img: res.data.forecast.forecastday[2].day.condition.icon,
+      // });
       setHRS([
         {
           time: '12 AM',
@@ -259,7 +261,7 @@ const Context = ({children}) => {
           deg_f: res.data.forecast.forecastday[0].hour[23].temp_f,
         },
       ]);
-     
+
       seterror(false);
       console.log(res.data);
     } catch (error) {
@@ -271,7 +273,7 @@ const Context = ({children}) => {
     () => ({
       LoadData,
       Loadproduct,
-      weatrerData,
+      // weatrerData,
       errors,
       SName,
       setSName,
@@ -284,7 +286,7 @@ const Context = ({children}) => {
     [
       LoadData,
       Loadproduct,
-      weatrerData,
+      // weatrerData,
       errors,
       HRS,
       SName,

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: 'http://api.weatherapi.com/v1/forecast.json?key=43ca3500399e463ba8b101827230506 &q=',
-  timeout: 3000,
+  timeout: 2000,
   timeoutErrorMessage: 'Try after some time',
 });
 

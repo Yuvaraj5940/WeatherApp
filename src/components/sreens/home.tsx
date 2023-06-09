@@ -15,11 +15,11 @@ const Home = ({navigation}) => {
   return (
     <SafeAreaView style={styles.continer}>
       <Image
-        source={require('../asects/images/weather-ap.png')}
+        source={require('../asets/images/weather-ap.png')}
         style={styles.img}
       />
       <Image
-        source={require('../asects/images/weather-api.png')}
+        source={require('../asets/images/weather-api.png')}
         style={styles.img2}
       />
     </SafeAreaView>

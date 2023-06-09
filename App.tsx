@@ -2,10 +2,11 @@ import {View, Text} from 'react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import Home from './src/components/home';
-import MainPage from './src/components/secpage';
-import Three from './src/components/three';
-import Context from './src/components/context';
+
+import Context from './src/components/sreens/context';
+import Home from './src/components/sreens/home';
+import MainPage from './src/components/sreens/secpage';
+import Three from './src/components/sreens/three';
 // import StackNavigator from './src/components/three';
 
 const Stack = createStackNavigator();
