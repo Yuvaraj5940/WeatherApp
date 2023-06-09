@@ -9,7 +9,7 @@ import Predivteddata from '../predivteddata';
 import Hr from '../Hr';
 
 const Three = ({navigation}) => {
-  const {Loadproduct, HRS, active} = useContext(WeatherContext);
+  const {Loadproduct} = useContext(WeatherContext);
   return (
     <LinearGradient colors={['#34cbff', '#4c669f']} style={styles.modelView}>
       <Pressable onPress={() => navigation.navigate('next')}>
@@ -29,7 +29,7 @@ const Three = ({navigation}) => {
       <Hr />
 
       <View style={styles.box2}>
-        <Hourlydata props={{HRS: HRS, active: active}} />
+        <Hourlydata />
       </View>
 
       <Hr />
@@ -90,5 +90,6 @@ const styles = StyleSheet.create({
     gap: 20,
     backgroundColor: '#00b0eb',
     paddingBottom: 50,
+    paddingTop: 10,
   },
 });

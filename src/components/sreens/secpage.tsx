@@ -24,15 +24,11 @@ import Hr from '../Hr';
 const MainPage = ({navigation}) => {
   const date = Date().toString().split(' ');
   let update = new Date().getDay();
-  const [name, setName] = useState('bangalore');
-  const [wdata, setWdata] = useState({});
   const {
     LoadData,
     errors,
     Loadproduct,
-    // weatrerData,
-    HRS,
-    SName,
+     SName,
     setSName,
     active,
     seterror,
@@ -114,9 +110,7 @@ const MainPage = ({navigation}) => {
           </Text>
 
           <Hr />
-          <Hourlydata props={{HRS: HRS, active: active}} />
-
-          {/* <View style={styles.hr} /> */}
+          <Hourlydata />
           <Hr />
           <RestData
             props={{
@@ -179,7 +173,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginHorizontal: 10,
     paddingHorizontal: 15,
-    // borderColor: '#FFFFFF'
   },
   box1: {
     display: 'flex',
@@ -188,7 +181,6 @@ const styles = StyleSheet.create({
     gap: 10,
     margin: 10,
   },
-  // hr: {borderWidth: 0.6, borderColor: '#d1e0e0', width: '100%'},
   navbtn: {
     height: 25,
     width: 30,
