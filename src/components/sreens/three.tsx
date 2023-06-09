@@ -5,7 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Cityname from '../cityname';
 import Hourlydata from '../hourdata';
 import RestData from '../RestData';
-import Predivteddata from '../predivteddata';
+import Predivteddata from '../predicteddata';
 import Hr from '../Hr';
 
 const Three = ({navigation}) => {
