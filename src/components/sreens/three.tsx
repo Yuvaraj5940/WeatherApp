@@ -4,9 +4,9 @@ import {WeatherContext} from './context';
 import LinearGradient from 'react-native-linear-gradient';
 import Cityname from '../cityname';
 import Hourlydata from '../hourdata';
-import RestData from '../RestData';
 import Predivteddata from '../predicteddata';
 import Hr from '../Hr';
+import RestData from '../RestData';
 
 const Three = ({navigation}) => {
   const {Loadproduct} = useContext(WeatherContext);
@@ -37,19 +37,10 @@ const Three = ({navigation}) => {
       <View style={styles.box3}>
         <Predivteddata />
       </View>
-
-      <View style={styles.box4}>
-        <RestData
-          props={{
-            sunrice: Loadproduct?.forecast?.forecastday[0]?.astro?.sunrise,
-            wind: Loadproduct.current?.wind_kph,
-            prici: Loadproduct.current?.precip_mm,
-            sunset: Loadproduct.forecast?.forecastday[0]?.astro?.sunset,
-            presur: Loadproduct.current?.pressure_mb,
-            humidity: Loadproduct.current?.humidity,
-          }}
-        />
-      </View>
+      <Hr />
+      {/* <View style={styles.box4}> */}
+      <RestData />
+      {/* </View> */}
     </LinearGradient>
   );
 };
@@ -89,7 +80,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     gap: 20,
     backgroundColor: '#00b0eb',
-    paddingBottom: 50,
+    paddingBottom: 40,
     paddingTop: 10,
   },
 });

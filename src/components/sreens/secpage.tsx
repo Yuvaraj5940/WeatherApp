@@ -7,8 +7,6 @@ import {
   TextInput,
   Image,
   Pressable,
-  FlatList,
-  Modal,
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
@@ -28,7 +26,7 @@ const MainPage = ({navigation}) => {
     LoadData,
     errors,
     Loadproduct,
-     SName,
+    SName,
     setSName,
     active,
     seterror,
@@ -112,16 +110,7 @@ const MainPage = ({navigation}) => {
           <Hr />
           <Hourlydata />
           <Hr />
-          <RestData
-            props={{
-              sunrice: Loadproduct.forecast.forecastday[0].astro.sunrise,
-              wind: Loadproduct.current.wind_kph,
-              prici: Loadproduct.current.precip_mm,
-              sunset: Loadproduct.forecast.forecastday[0].astro.sunset,
-              presur: Loadproduct.current.pressure_mb,
-              humidity: Loadproduct.current.humidity,
-            }}
-          />
+          <RestData />
 
           <Pressable
             style={{marginTop: 20}}
@@ -146,9 +135,11 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
+    // flex: 1,
     display: 'flex',
     backgroundColor: '#00bfff',
     paddingTop: 20,
+    flexWrap: 'wrap',
   },
   hedbox: {
     flexDirection: 'row',

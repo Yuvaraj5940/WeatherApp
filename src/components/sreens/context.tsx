@@ -8,6 +8,7 @@ const Context = ({children}) => {
   const [active, setActive] = useState(false);
   const [errors, seterror] = useState(true);
   const [SName, setSName] = useState('Bangalore');
+
   const LoadData = useCallback(async () => {
     try {
       const res = await axiosInstance.get(`${SName}&days=3&aqi=no&alerts=no`);
