@@ -70,11 +70,12 @@ const styles = StyleSheet.create({
     gap: 10,
     margin: 30,
   },
-  box2: {display: 'flex', flexDirection: 'row', gap: 20},
+  box2: {display: 'flex', flexDirection: 'row',},
   box3: {
     width: '100%',
     height: '35%',
     justifyContent: 'space-evenly',
+    marginVertical:15,
   },
   box4: {
     display: 'flex',

@@ -37,10 +37,6 @@ const RestData = () => {
               <Text style={styles.box4_row1}>Perciptitation</Text>
               <Text style={styles.box4_row2}>{Loadproduct?.current?.precip_mm} mm</Text>
             </View>
-
-
-
-
           </View>
 
           <View style={styles.box4}>
@@ -66,11 +62,11 @@ const styles=StyleSheet.create({
     box4: {
         display: 'flex',
         flexDirection: 'row',
-        marginTop: 30,
-        gap: 20,
+        marginTop: 40,
+        // gap: 0,
         justifyContent: 'space-evenly',
       },
-      box4_col1: {display: 'flex', paddingLeft:30 },
+      box4_col1: {display: 'flex',alignItems:'stretch' },
   box4_row1: {color: '#d1e0e0'},
   box4_row2: {fontSize: 22, color: '#FFFFFF'},
 })

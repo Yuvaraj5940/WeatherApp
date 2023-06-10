@@ -11,7 +11,7 @@ const Context = ({children}) => {
 
   const LoadData = useCallback(async () => {
     try {
-      const res = await axiosInstance.get(`${SName}&days=3&aqi=no&alerts=no`);
+      const res = await axiosInstance.get(`${SName}&days=7&aqi=no&alerts=no`);
       setLoadProducrt({...res.data});
       setisload(true);
       seterror(false);
